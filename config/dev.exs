@@ -37,6 +37,6 @@ config :sana_server_phoenix, SanaServerPhoenix.Repo,
   adapter: Ecto.Adapters.MySQL,
   username: "root",
   password: "",
-  database: "sana_server_phoenix_dev",
+  database: "anime_admin_development",
   hostname: "localhost",
   pool_size: 10
