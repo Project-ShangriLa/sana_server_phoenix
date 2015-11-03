@@ -35,3 +35,9 @@ mix phoenix.server
 ## V1 API リファレンス
 
 [sana_server](https://github.com/Project-ShangriLa/sana_server) レポジトリを参照のこと
+
+## Curl
+
+```
+curl -v http://localhost:4000/anime/v1/twitter/follwer/status?accounts=usagi_anime,kinmosa_anime
+```
