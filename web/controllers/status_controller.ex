@@ -16,6 +16,10 @@ defmodule SanaServerPhoenix.StatusController do
 
     response_data = Enum.map twitter_status[:rows], fn(x) ->
       [bases_id, twitter_account, follower, updated_at] = x
+
+      at = String.to_atom(twitter_account)
+      #Dict.merge(response_map, %{:at => %{:followe => follower, :updated_at => UnixTime.convert_date_to_unixtime(updated_at)}})
+
       rows = %{:twitter_account => twitter_account, :follower => follower, :updated_at => UnixTime.convert_date_to_unixtime(updated_at)}
     end
 
@@ -26,7 +30,6 @@ end
 
 
 defmodule UnixTime do
-　# MySQL datatimeをJSTのunixtimeに変換する
   def convert_date_to_unixtime(created_at) do
     #JSTなので9Hにしておく
     epoch = {{1970, 1, 1}, {9, 0, 0}}
