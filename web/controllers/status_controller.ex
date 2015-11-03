@@ -4,27 +4,19 @@ defmodule SanaServerPhoenix.StatusController do
   def index(conn, _params) do
 
     # http://hexdocs.pm/ecto/Ecto.Adapters.SQL.html#query/4
-    #パラメーターを受け取る _params["accounts"]
     account_list = Enum.join(String.split(_params["accounts"],","), "\",\"")
     account_list_st = "\"" <> account_list <> "\""
 
-    accounts_map = %{}
-    #Baseテーブルを検索しIDを取得
-    {:ok, result } = Ecto.Adapters.SQL.query(Repo, "SELECT bases.id, bases.twitter_account from bases where twitter_account IN (#{account_list_st})", [])
-    IO.inspect result[:rows]
-
-    Enum.each result[:rows], fn(x) ->
-      [bases_id, twitter_account] = x
-      #accounts_map[bases_id] = twitter_account
-    end
-
-    ids = '"27","166"'
-
-    {:ok, twitter_status } = Ecto.Adapters.SQL.query(Repo, "SELECT bases_id, follower, updated_at from twitter_statuses where bases_id IN (#{ids})", [])
+    {:ok, twitter_status } = Ecto.Adapters.SQL.query(Repo,
+      "SELECT bases_id, b.twitter_account , follower, updated_at
+      from twitter_statuses, (
+       SELECT id, twitter_account FROM bases where twitter_account IN (#{account_list_st})
+      ) b
+      where twitter_statuses.bases_id = b.id", [])
 
     response_data = Enum.map twitter_status[:rows], fn(x) ->
-      [bases_id, follower, updated_at] = x
-      rows = %{:bases_id => bases_id, :follower => follower, :updated_at => UnixTime.convert_date_to_unixtime(updated_at)}
+      [bases_id, twitter_account, follower, updated_at] = x
+      rows = %{:twitter_account => twitter_account, :follower => follower, :updated_at => UnixTime.convert_date_to_unixtime(updated_at)}
     end
 
     render conn, msg: response_data
@@ -32,8 +24,9 @@ defmodule SanaServerPhoenix.StatusController do
 
 end
 
-defmodule UnixTime do
 
+defmodule UnixTime do
+　# MySQL datatimeをJSTのunixtimeに変換する
   def convert_date_to_unixtime(created_at) do
     #JSTなので9Hにしておく
     epoch = {{1970, 1, 1}, {9, 0, 0}}
