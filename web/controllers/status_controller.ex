@@ -16,14 +16,17 @@ defmodule SanaServerPhoenix.StatusController do
 
     response_data = Enum.map twitter_status[:rows], fn(x) ->
       [bases_id, twitter_account, follower, updated_at] = x
-
-      at = String.to_atom(twitter_account)
-      #Dict.merge(response_map, %{:at => %{:followe => follower, :updated_at => UnixTime.convert_date_to_unixtime(updated_at)}})
-
       rows = %{:twitter_account => twitter_account, :follower => follower, :updated_at => UnixTime.convert_date_to_unixtime(updated_at)}
     end
 
-    render conn, msg: response_data
+    #SQLのrow配列をハッシュに変換する
+    response_map = %{
+      :kinmosa_anime => %{:follower => 42000, :updated_at => 1411466007},
+      :gochiusa_anime => %{:follower => 51345, :updated_at => 1411466008}
+    }
+    IO.inspect response_map
+
+    render conn, msg: response_map
   end
 
 end
