@@ -5,28 +5,26 @@ defmodule SanaServerPhoenix.StatusController do
 
     # http://hexdocs.pm/ecto/Ecto.Adapters.SQL.html#query/4
     account_list = Enum.join(String.split(_params["accounts"],","), "\",\"")
+
+    # <> で文字列連結
     account_list_st = "\"" <> account_list <> "\""
 
     {:ok, twitter_status } = Ecto.Adapters.SQL.query(Repo,
-      "SELECT bases_id, b.twitter_account , follower, updated_at
+      "SELECT b.twitter_account , follower, updated_at
       from twitter_statuses, (
        SELECT id, twitter_account FROM bases where twitter_account IN (#{account_list_st})
       ) b
       where twitter_statuses.bases_id = b.id", [])
 
     response_data = Enum.map twitter_status[:rows], fn(x) ->
-      [bases_id, twitter_account, follower, updated_at] = x
-      rows = %{:twitter_account => twitter_account, :follower => follower, :updated_at => UnixTime.convert_date_to_unixtime(updated_at)}
+      [twitter_account, follower, updated_at] = x
+      %{:twitter_account => twitter_account, :follower => follower, :updated_at => UnixTime.convert_date_to_unixtime(updated_at)}
     end
 
-    #SQLのrow配列をハッシュに変換する
-    response_map = %{
-      :kinmosa_anime => %{:follower => 42000, :updated_at => 1411466007},
-      :gochiusa_anime => %{:follower => 51345, :updated_at => 1411466008}
-    }
-    IO.inspect response_map
+    #変数dump
+    IO.inspect response_data
 
-    render conn, msg: response_map
+    render conn, msg: response_data
   end
 
 end
