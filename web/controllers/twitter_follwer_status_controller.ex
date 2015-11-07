@@ -43,30 +43,3 @@ defmodule SanaServerPhoenix.TwitterFollwerStatusController do
   end
 
 end
-
-defmodule Recursion do
-  def exe(msg, n) when n <= 0 do
-    IO.inspect n
-    IO.inspect is_list(msg)
-  end
-
-  def exe(msg, n) do
-    IO.inspect n
-    IO.inspect List.last(msg)
-    exe(msg, n - 1)
-  end
-end
-
-
-defmodule UnixTime do
-  def convert_date_to_unixtime(created_at) do
-    #JSTなので9Hにしておく
-    epoch = {{1970, 1, 1}, {9, 0, 0}}
-    epoch_gs = :calendar.datetime_to_gregorian_seconds(epoch)
-
-    {{year, month, day}, {hour, minute, second, msec}} = created_at
-    gs = :calendar.datetime_to_gregorian_seconds({{year, month, day}, {hour, minute, second}})
-    gs - epoch_gs
-  end
-
-end
