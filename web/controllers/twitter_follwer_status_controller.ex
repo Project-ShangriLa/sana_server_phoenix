@@ -6,6 +6,8 @@ defmodule SanaServerPhoenix.TwitterFollwerStatusController do
     # http://hexdocs.pm/ecto/Ecto.Adapters.SQL.html#query/4
     # IN句のプリペアードステートメント
     # http://rikutoto.blogspot.jp/2013/08/preparedstatementin.html
+    # http://localhost:4000/anime/v1/twitter/follwer/status?accounts=')%20OR%201=1%20OR%20twitter_account%20IN%20('
+    # SELECT id, twitter_account FROM bases where twitter_account IN ('\') OR 1=1 OR twitter_account IN (\'')
     account_list = String.split(_params["accounts"],",")
 
     prepared_statement_list = []
