@@ -16,7 +16,6 @@ defmodule SanaServerPhoenix.TwitterFollwerStatusController do
     end)
 
     prepared_statement_in =  Enum.join(prepared_statement_list, ",")
-    IO.inspect prepared_statement_in
 
     {:ok, twitter_status } = Ecto.Adapters.SQL.query(Repo,
       "SELECT b.twitter_account, follower, updated_at

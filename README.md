@@ -18,7 +18,7 @@ ShangriLa Anime API Server for Twitter Data
 #### DB
 * MySQL、もしくはMySQL互換サーバーのインストール
 * anime_admin_development データベース作成
-* 必要なDDLの投入
+* 必要なDDLの投入 [sana_server](https://github.com/Project-ShangriLa/sana_server) 
 
 #### API Server
 
@@ -48,8 +48,14 @@ MIX_ENV=prod PORT=4000 mix phoenix.server
 ## Curl
 
 ```
-curl -v http://localhost:4000/anime/v1/twitter/follwer/status?accounts=usagi_anime,kinmosa_anime
+curl -v http://localhost:4000/anime/v1/twitter/follwer/status?accounts=usagi_anime,kinmosa_anime | jq .
 
-curl -v http://localhost:4000/anime/v1/twitter/follwer/history?account=usagi_anime
-curl -v "http://localhost:4000/anime/v1/twitter/follwer/history?account=usagi_anime&end_date=1407562541"
+curl -v http://localhost:4000/anime/v1/twitter/follwer/history?account=usagi_anime | jq .
+curl -v "http://localhost:4000/anime/v1/twitter/follwer/history?account=usagi_anime&end_date=1407562541" | jq .
+```
+
+## ルーティングの確認
+
+```
+mix phoenix.routes
 ```
