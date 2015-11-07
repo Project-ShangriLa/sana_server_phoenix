@@ -1,4 +1,4 @@
-defmodule SanaServerPhoenix.StatusView do
+defmodule SanaServerPhoenix.TwitterFollwerStatusView do
   use SanaServerPhoenix.Web, :view
 
   def render("index.json", %{msg: msg}) do

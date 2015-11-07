@@ -21,7 +21,8 @@ defmodule SanaServerPhoenix.Router do
 
   scope "/", SanaServerPhoenix do
     pipe_through :api
-    resources "/anime/v1/twitter/follwer/status", StatusController
+    resources "/anime/v1/twitter/follwer/status", TwitterFollwerStatusController
+    resources "/anime/v1/twitter/follwer/history", TwitterFollwerHistoryController
   end
 
   # Other scopes may use custom stacks.

@@ -1,4 +1,4 @@
-defmodule SanaServerPhoenix.StatusController do
+defmodule SanaServerPhoenix.TwitterFollwerStatusController do
   use SanaServerPhoenix.Web, :controller
 
   def index(conn, _params) do
@@ -20,8 +20,8 @@ defmodule SanaServerPhoenix.StatusController do
     response_data = Enum.map twitter_status[:rows], fn(x) ->
       [twitter_account, follower, updated_at] = x
       check = Tuple.append(check, twitter_account)
-        IO.inspect check
-      %{:twitter_account => twitter_account, :follower => follower, :updated_at => UnixTime.convert_date_to_unixtime(updated_at)}
+      #  IO.inspect check
+      #%{:twitter_account => twitter_account, :follower => follower, :updated_at => UnixTime.convert_date_to_unixtime(updated_at)}
     end
 
     #Recursion.exe(twitter_status[:rows], length(twitter_status[:rows]) - 1)
