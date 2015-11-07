@@ -49,5 +49,7 @@ MIX_ENV=prod PORT=4000 mix phoenix.server
 
 ```
 curl -v http://localhost:4000/anime/v1/twitter/follwer/status?accounts=usagi_anime,kinmosa_anime
+
+curl -v http://localhost:4000/anime/v1/twitter/follwer/history?account=usagi_anime
 curl -v "http://localhost:4000/anime/v1/twitter/follwer/history?account=usagi_anime&end_date=1407562541"
 ```

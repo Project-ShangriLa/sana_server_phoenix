@@ -3,22 +3,23 @@ defmodule SanaServerPhoenix.TwitterFollwerHistoryController do
   def index(conn, _params) do
     response = []
 
-    account = "'" <> _params["account"] <> "'"
+    account = _params["account"]
     param_end_date = _params["end_date"]
 
     #ElixirではIF判定はパターンマッチで行う
     end_date = case param_end_date do
       nil -> "now()"
-      num -> "'" <> UnixTime.convert_unixtime_to_date(String.to_integer(param_end_date)) <> "'"
+      num -> UnixTime.convert_unixtime_to_date(String.to_integer(param_end_date))
       _ -> render conn, msg: response
     end
 
+    #http://localhost:4000/anime/v1/twitter/follwer/history?account='t'%20OR%20't'%20=%20't'
     {:ok, twitter_status } = Ecto.Adapters.SQL.query(Repo,
       "SELECT h.follower, h.updated_at
       from twitter_status_histories as h,
-      (SELECT id FROM bases WHERE twitter_account = #{account} order by id desc limit 1) b
-       where h.bases_id = b.id AND h.updated_at < #{end_date} order by h.updated_at desc limit 100",
-       [])
+      (SELECT id FROM bases WHERE twitter_account = ? order by id desc limit 1) b
+       where h.bases_id = b.id AND h.updated_at < ? order by h.updated_at desc limit ?",
+       [account, end_date, 100])
 
     response = List.foldr(twitter_status[:rows], response,
     fn (x, acc) ->

@@ -4,17 +4,24 @@ defmodule SanaServerPhoenix.TwitterFollwerStatusController do
   def index(conn, _params) do
 
     # http://hexdocs.pm/ecto/Ecto.Adapters.SQL.html#query/4
-    account_list = Enum.join(String.split(_params["accounts"],","), "\",\"")
+    # IN句のプリペアードステートメント
+    # http://rikutoto.blogspot.jp/2013/08/preparedstatementin.html
+    account_list = String.split(_params["accounts"],",")
 
-    # <> で文字列連結
-    account_list_st = "\"" <> account_list <> "\""
+    prepared_statement_list = []
+    prepared_statement_list = Enum.map(account_list, fn(x) ->
+      prepared_statement_list = prepared_statement_list ++ ["?"]
+    end)
+
+    prepared_statement_in =  Enum.join(prepared_statement_list, ",")
+    IO.inspect prepared_statement_in
 
     {:ok, twitter_status } = Ecto.Adapters.SQL.query(Repo,
       "SELECT b.twitter_account, follower, updated_at
       from twitter_statuses, (
-       SELECT id, twitter_account FROM bases where twitter_account IN (#{account_list_st})
+       SELECT id, twitter_account FROM bases where twitter_account IN (#{prepared_statement_in})
       ) b
-      where twitter_statuses.bases_id = b.id order by updated_at desc", [])
+      where twitter_statuses.bases_id = b.id order by updated_at desc", account_list)
 
     dict = HashDict.new
     dict = List.foldr(twitter_status[:rows], dict,
