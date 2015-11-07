@@ -28,8 +28,16 @@ mix deps.get
 
 ### 起動方法
 
+dev
 ```
 mix phoenix.server
+```
+
+production
+http://www.phoenixframework.org/v0.6.2/docs/running-in-production-or-performance-testing
+```
+MIX_ENV=prod mix compile.protocols
+MIX_ENV=prod PORT=4000 mix phoenix.server
 ```
 
 ## V1 API リファレンス
@@ -40,4 +48,5 @@ mix phoenix.server
 
 ```
 curl -v http://localhost:4000/anime/v1/twitter/follwer/status?accounts=usagi_anime,kinmosa_anime
+curl -v "http://localhost:4000/anime/v1/twitter/follwer/history?account=usagi_anime&end_date=1407562541"
 ```
