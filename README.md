@@ -18,7 +18,7 @@ ShangriLa Anime API Server for Twitter Data
 #### DB
 * MySQL、もしくはMySQL互換サーバーのインストール
 * anime_admin_development データベース作成
-* 必要なDDLの投入 [ShangriLa DDL](https://github.com/Project-ShangriLa/shangrila/tree/master/DDL) 
+* 必要なDDLの投入 [ShangriLa DDL](https://github.com/Project-ShangriLa/shangrila/tree/master/DDL)
 
 #### API Server
 
@@ -40,6 +40,10 @@ MIX_ENV=prod PORT=4000 mix phoenix.server
 ```
 
 参考)http://www.phoenixframework.org/v0.6.2/docs/running-in-production-or-performance-testing
+
+## ライセンス
+
+Apache 2 license
 
 ## V1 API リファレンス
 
