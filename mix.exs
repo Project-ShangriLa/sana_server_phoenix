@@ -36,7 +36,8 @@ defmodule SanaServerPhoenix.Mixfile do
      {:phoenix_html, "~> 2.1"},
      {:phoenix_live_reload, "~> 1.0", only: :dev},
      {:cowboy, "~> 1.0"},
-     {:timex, "~> 0.9"}]
+     {:timex, "~> 0.9"},
+     {:logger_file_backend, "~> 0.0.5"}]
   end
 
   # Aliases are shortcut or tasks specific to the current project.
