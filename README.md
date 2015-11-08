@@ -10,10 +10,36 @@ ShangriLa Anime API Server for Twitter Data
 
 ### サーバーシステム要件
 
-* Elixir
+* Elixir 1.0+
 * フレームワーク Phoenix
 
 ### インストール
+
+#### Erlang and Elixir
+
+##### OSX
+
+```
+homebrew install elixir
+```
+
+##### Linux
+
+* Erlang RPM
+* https://www.erlang-solutions.com/downloads/download-erlang-otp
+
+* Elixir
+
+```
+git clone https://github.com/elixir-lang/elixir.git
+cd elixir/
+git checkout v1.1.1
+make clean test
+```
+
+```
+export PATH="$PATH:/path/to/elixir/bin"
+```
 
 #### DB
 * MySQL、もしくはMySQL互換サーバーのインストール
