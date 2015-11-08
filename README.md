@@ -18,7 +18,7 @@ ShangriLa Anime API Server for Twitter Data
 #### DB
 * MySQL、もしくはMySQL互換サーバーのインストール
 * anime_admin_development データベース作成
-* 必要なDDLの投入 [sana_server](https://github.com/Project-ShangriLa/sana_server) 
+* 必要なDDLの投入 [ShangriLa DDL](https://github.com/Project-ShangriLa/shangrila/tree/master/DDL) 
 
 #### API Server
 
