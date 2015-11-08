@@ -13,14 +13,14 @@ defmodule SanaServerPhoenix.TwitterFollwerHistoryController do
     #ElixirではIFをパターンマッチで行う
     end_date = try do
       case param_end_date do
-        nil -> "now()"
+        nil -> DateUtil.now_format
         _ -> UnixTime.convert_unixtime_to_date(String.to_integer(param_end_date))
       end
     rescue
       e in ArgumentError -> e
       #Exception.messageで例外メッセージを取得
       Logger.warn "error param end_date. " <> Exception.message(e)
-      "now()"
+      DateUtil.now_format
     end
 
     #http://localhost:4000/anime/v1/twitter/follwer/history?account='t'%20OR%20't'%20=%20't'
@@ -64,4 +64,14 @@ defmodule UnixTime do
     date_string
   end
 
+end
+
+defmodule DateUtil do
+  def now_format() do
+    {:ok, date_string} =
+      :erlang.localtime
+      |> Timex.Date.from
+      |> Timex.DateFormat.format("%Y-%m-%d %H:%M:%S", :strftime)
+    date_string
+  end
 end
