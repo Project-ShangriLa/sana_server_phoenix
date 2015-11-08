@@ -1,16 +1,19 @@
 defmodule SanaServerPhoenix.TwitterFollwerHistoryController do
   use SanaServerPhoenix.Web, :controller
+  require Logger
+  
   def index(conn, _params) do
     response = []
 
     account = _params["account"]
     param_end_date = _params["end_date"]
+    end_date = "now()"
 
-    #ElixirではIF判定はパターンマッチで行う
-    end_date = case param_end_date do
-      nil -> "now()"
-      num -> UnixTime.convert_unixtime_to_date(String.to_integer(param_end_date))
-      _ -> render conn, msg: response
+    try do
+      end_date = UnixTime.convert_unixtime_to_date(String.to_integer(param_end_date))
+    rescue
+      e in ArgumentError -> e
+      Logger.warn "ArgumentError end_date=" <> param_end_date
     end
 
     #http://localhost:4000/anime/v1/twitter/follwer/history?account='t'%20OR%20't'%20=%20't'
