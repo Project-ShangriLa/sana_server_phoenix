@@ -5,6 +5,8 @@ defmodule SanaServerPhoenix.TwitterFollwerHistoryController do
   def index(conn, _params) do
     response = []
 
+    #IO.inspect Logger.metadata()
+
     account = _params["account"]
     param_end_date = _params["end_date"]
 
@@ -16,7 +18,8 @@ defmodule SanaServerPhoenix.TwitterFollwerHistoryController do
       end
     rescue
       e in ArgumentError -> e
-      Logger.warn "ArgumentError end_date"
+      #Exception.messageで例外メッセージを取得
+      Logger.warn "error param end_date. " <> Exception.message(e)
       "now()"
     end
 
