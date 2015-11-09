@@ -78,10 +78,10 @@ Apache 2 license
 ## Curl
 
 ```
-curl -v http://localhost:4000/anime/v1/twitter/follwer/status?accounts=usagi_anime,kinmosa_anime | jq .
+curl -v http://localhost:4000/anime/v1/twitter/follower/status?accounts=usagi_anime,kinmosa_anime | jq .
 
-curl -v http://localhost:4000/anime/v1/twitter/follwer/history?account=usagi_anime | jq .
-curl -v "http://localhost:4000/anime/v1/twitter/follwer/history?account=usagi_anime&end_date=1407562541" | jq .
+curl -v http://localhost:4000/anime/v1/twitter/follower/history?account=usagi_anime | jq .
+curl -v "http://localhost:4000/anime/v1/twitter/follower/history?account=usagi_anime&end_date=1407562541" | jq .
 ```
 
 ## ルーティングの確認

@@ -1,4 +1,4 @@
-defmodule SanaServerPhoenix.TwitterFollwerHistoryController do
+defmodule SanaServerPhoenix.TwitterFollowerHistoryController do
   use SanaServerPhoenix.Web, :controller
   require Logger
 
@@ -23,7 +23,7 @@ defmodule SanaServerPhoenix.TwitterFollwerHistoryController do
       DateUtil.now_format
     end
 
-    #http://localhost:4000/anime/v1/twitter/follwer/history?account='t'%20OR%20't'%20=%20't'
+    #http://localhost:4000/anime/v1/twitter/follower/history?account='t'%20OR%20't'%20=%20't'
     {:ok, twitter_status } = Ecto.Adapters.SQL.query(Repo,
       "SELECT h.follower, h.updated_at
       from twitter_status_histories as h,
